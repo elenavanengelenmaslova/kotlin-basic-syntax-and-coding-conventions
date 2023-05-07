@@ -125,43 +125,327 @@ level: 2
 # Kotlin Syntax Overview
 
 ---
-transition: slide-left
+transition: slide-up
 
 level: 3
 ---
 # Kotlin source files
 
+<v-clicks>
+
+- Kotlin source files use the `.kt` file extension
+
+- Key components of Kotlin source files:
+  - Package declarations
+  - Import statements
+  - Top-level declarations
+
+- They can contain multiple declarations, including: classes, functions and constants 
+  
+- Package declaration helps avoid naming conflicts and organizes code
+
+- Import statements provide access to resources from different packages
+
+</v-clicks>
+
+<img
+v-click
+class="absolute -bottom-15 -left-0 w-80 opacity-50"
+src="https://sli.dev/assets/arrow-bottom-left.svg"
+/>
+<p v-after class="absolute bottom-23 left-70 opacity-30 transform -rotate-40">Example</p>
+
 ---
 transition: slide-left
+
+---
+
+```kotlin  {all|1,2|4,5|7,8|10,11|13,14|16-19|21-29}
+// Package declaration
+package com.example.shop
+
+// Import statements
+import com.example.util.CurrencyFormatter
+
+// Top-level constant property
+const val SALES_TAX_RATE = 0.07
+
+// Top-level non-constant property
+var shopName: String = "My Awesome Shop"
+
+// Top-level function
+fun formatPrice(price: Double): String = CurrencyFormatter.format(price)
+
+// Top-level class
+class Product(val id: Int, val name: String, val price: Double) {
+    fun calculatePriceWithTax(): Double = price * (1 + SALES_TAX_RATE)
+}
+
+// Top-level object
+object ProductCatalogue {
+    private val products = mutableListOf<Product>()
+
+    fun addProduct(product: Product) = products.add(product)
+}
+```
+
+---
+transition: slide-up
 
 level: 3
 ---
 # Visibility modifiers
 
----
-transition: slide-left
+Kotlin provides four visibility modifiers: `public`, `private`, `internal`, and `protected`:
+<v-clicks>
 
-level: 3
----
-# Package definition
+- `public` (default) - accessible from any Kotlin file, even those in different packages
+
+- `private` - top-level declarations are visible within the file; class/interface members are visible within the class/interface
+
+- `internal` - accessible from any other Kotlin file within the same module
+
+- `protected` - applicable only to class and interface members; visible within the class and its subclasses
+</v-clicks>
+
+<img
+v-click
+class="absolute -bottom-15 -left-0 w-80 opacity-50"
+src="https://sli.dev/assets/arrow-bottom-left.svg"
+/>
+<p v-after class="absolute bottom-23 left-70 opacity-30 transform -rotate-40">Example</p>
 
 ---
-transition: slide-left
+---
+```kotlin  {all|1,2|4,5|7-10|12-15|14|17-22|19,20}
+// Public (default) visibility - accessible from any Kotlin file
+class Product(val id: Int, val name: String, val price: Double)
+
+// Private visibility - accessible only within the same file
+private fun calculateDiscount(price: Double, rate: Double) = price * rate
+
+// Internal visibility - accessible within the same module
+internal fun internalFunction() {
+    // Accessible within the same module
+}
+
+// Protected visibility - accessible within the class and its subclasses
+open class ShopUser(private val accountId: String) {
+    protected fun getAccountInfo() = "Account ID: $accountId"
+}
+
+class Customer(accountId: String, val email: String) : ShopUser(accountId) {
+    fun printAccountInfo() {
+        // Accessible since it's a subclass of ShopUser
+        println(getAccountInfo())
+    }
+}
+```
+
+---
+transition: slide-up
 
 level: 3
 ---
 # Import declarations
 
+Use import declarations to access declarations from other packages.
+
+<v-clicks>
+
+- Import a specific declaration with `import <fully qualified name>`
+
+- Import multiple declarations by listing multiple import statements
+
+- Wildcard imports with `*` to import all declarations from a package (use cautiously)
+
+- Use `as` keyword to create an alias for naming conflicts or specific naming 
+
+- Standard library packages are automatically imported, such as `kotlin.*`
+
+</v-clicks>
+
+<img
+v-click
+class="absolute -bottom-15 -left-0 w-80 opacity-50"
+src="https://sli.dev/assets/arrow-bottom-left.svg"
+/>
+<p v-after class="absolute bottom-23 left-70 opacity-30 transform -rotate-40">Example</p>
+
 ---
-transition: slide-left
+---
+
+```kotlin  {all|1-4,12-15|6,7,17,18|2,9,10,20,21}
+// Import multiple declarations from the same package
+import com.example.shop.Product
+import com.example.shop.Customer
+import com.example.shop.Order
+
+// Wildcard import (use cautiously)
+import com.example.shop.util.*
+
+// Import a declaration and create an alias
+import com.example.widgets.Product as WidgetProduct
+
+// Usage of imported declarations
+val product = Product(1, "Laptop", 1200.0)
+val customer = Customer("John Doe", "john@example.com")
+val order = Order(product, customer)
+
+// Usage of wildcard import
+val discount = calculateDiscount(product.price, 0.1)
+
+// Usage of aliased import
+val widgetProduct = WidgetProduct("Widget-01", 15.99)
+```
+---
+transition: slide-up
 
 level: 3
 ---
 # Variables and Constants
 
-<!-- 
-Quiz: Difference between variables and constants 
--->
+<v-clicks>
+
+- Variables and constants store and manage data 
+
+- Variable declaration: `val` (immutable) and `var` (mutable)
+
+- Variables used in top-level declarations, class properties, local variables, and function parameters 
+
+- Constants: immutable values known at compile time 
+
+- Constants declared with const keyword for primitive types and String
+
+- Constants in class-specific companion objects 
+
+- Non-primitive constants declared with `val` (singleton-like)
+
+</v-clicks>
+
+<img
+v-click
+class="absolute -bottom-15 -left-0 w-80 opacity-50"
+src="https://sli.dev/assets/arrow-bottom-left.svg"
+/>
+<p v-after class="absolute bottom-23 left-70 opacity-30 transform -rotate-40">Example</p>
+
+---
+---
+
+```kotlin  {all|1-3,12-15,26|5,6,8-10,18,19}
+// Top-level constant
+const val SALES_TAX_RATE = 0.07
+const val DEFAULT_CURRENCY = "USD"
+
+// Top-level variable
+var shopName: String = "Gadget Store"
+
+class Product(val id: Int, val name: String, var price: Double) {
+    // Class properties
+    val category: String = "Electronics"
+
+    // Companion object with constants
+    companion object {
+        const val DEFAULT_DISCOUNT_RATE = 0.1
+    }
+
+    // Function using a local variable and function parameter
+    fun calculateDiscountedPrice(discount: Double = DEFAULT_DISCOUNT_RATE): Double {
+        val discountedPrice = price * (1 - discount)
+        return discountedPrice
+    }
+}
+
+// Non-primitive constant declared with val (singleton-like)
+object CurrencyConverter {
+    val SUPPORTED_CURRENCIES = listOf("USD", "EUR", "JPY")
+}
+```
+
+---
+transition: slide-left
+
+level: 3
+---
+# Quiz Question 🤹
+
+## What is the main difference between variables and constants in Kotlin?
+
+Choose one correct answer:
+
+<v-clicks>
+
+**A)** Variables and constants both have the ability to change their values at runtime.
+
+**B)** Constants are only used for String values, while variables can hold any data type.
+
+**C)** Variables can change their values during program execution, while constants cannot.
+
+**D)** Constants have a fixed pension plan, while variables have to deal with a fluctuating retirement fund.
+<br/><br/>
+
+**Correct answer:** C) Variables can change their values during program execution, while constants cannot.
+
+</v-clicks>
+
+
+---
+transition: slide-up
+
+level: 3
+---
+# Variables and Constants, continued..
+
+<v-clicks>
+
+- Type inference: compiler infers variable type 
+
+- Nullability: nullable and non-nullable types 
+
+- Basic data types: numbers, characters, booleans, strings, and arrays
+
+- Collections: lists, sets, and maps (mutable and immutable variants)
+
+</v-clicks>
+
+<img
+v-click
+class="absolute -bottom-15 -left-0 w-80 opacity-50"
+src="https://sli.dev/assets/arrow-bottom-left.svg"
+/>
+<p v-after class="absolute bottom-23 left-70 opacity-30 transform -rotate-40">Example</p>
+
+---
+---
+
+```kotlin  {all|1-4|6-8|10-15|17,18,21,24|17,19,22,25}
+// Type inference: String
+val shopName = "Gadget Store"
+// Type inference: Int
+var customerAge = 30
+
+// Nullability: nullable and non-nullable types
+val discount: Double? = null // nullable variable
+val productCode: String = "AB123" // non-nullable variable
+
+// Basic data types: numbers, characters, booleans, strings, and arrays
+val productId: Int = 101
+val isInStock: Boolean = true
+val productInitial: Char = 'L'
+val productName: String = "Laptop"
+val productRatings: Array<Int> = arrayOf(4, 5, 3, 4)
+
+// Collections: lists, sets, and maps (mutable and immutable variants)
+val products: List<String> = listOf("Laptop", "Mouse")
+val mutableProducts: MutableList<String> = mutableListOf("Laptop", "Mouse")
+
+val productCategories: Set<String> = setOf("Electronics", "Accessories")
+val mutableProductCategories: MutableSet<String> = mutableSetOf("Electronics", "Accessories")
+
+val productStock: Map<String, Int> = mapOf("Laptop" to 10, "Mouse" to 50)
+val mutableProductStock: MutableMap<String, Int> = mutableMapOf("Laptop" to 10, "Mouse" to 50)
+```
 
 ---
 transition: slide-left
@@ -170,12 +454,115 @@ level: 3
 ---
 # Functions
 
+<v-clicks>
+
+- Functions: modular, reusable, and maintainable code 
+
+- Function declaration: top level, class members, nested functions 
+
+- Nested functions: access outer function variables and parameters
+
+- Extension functions: add new functions to existing classes 
+
+- Lambda functions and higher-order functions: anonymous functions and functions that take/return functions
+
+</v-clicks>
+
+<img
+v-click
+class="absolute -bottom-15 -left-0 w-80 opacity-50"
+src="https://sli.dev/assets/arrow-bottom-left.svg"
+/>
+<p v-after class="absolute bottom-23 left-70 opacity-30 transform -rotate-40">Example</p>
+
 ---
-transition: slide-left
+---
+
+```kotlin  {all|1-4|6-13|15,16|15-18|15-20|22,23|22-26}
+// Function declaration
+fun calculateTotal(products: List<Product>): Double {
+    return products.sumOf { it.price }
+}
+
+// Nested functions
+fun processOrder(order: Order) {
+    fun validateOrder(order: Order) = true
+    fun applyDiscounts(order: Order) {
+        /* Apply discounts */
+    }
+    if (validateOrder(order)) applyDiscounts(order)
+}
+
+// Extension function
+fun List<Product>.totalPrice() = sumOf { it.price }
+// Create a list of products
+val products = listOf(Product("Laptop", 999.99), Product("Mouse", 29.99))
+// Use the extension function to calculate the total price
+val totalPrice = products.totalPrice()
+
+// Lambda function
+val discountFunction: (Double) -> Double = { price -> price * 0.9 }
+//Higher-order function
+fun applyDiscount(price: Double, discountCalulator: (Double) -> Double) = discountCalulator(price)
+val finalPrice = applyDiscount(price = 100.0, discountCalulator = discountFunction)
+```
+
+
+
+---
+transition: slide-up
 
 level: 3
 ---
 # Program entry point
+
+<v-clicks>
+
+- Entry point: `main()` function
+
+- Top-level function: not part of any class or object 
+
+- No return type: defaults to Unit 
+
+- Command-line arguments (optional): `args` parameter (`Array<String>`)
+</v-clicks>
+
+<img
+v-click
+class="absolute -bottom-15 -left-0 w-80 opacity-50"
+src="https://sli.dev/assets/arrow-bottom-left.svg"
+/>
+<p v-after class="absolute bottom-23 left-70 opacity-30 transform -rotate-40">Example</p>
+
+---
+---
+
+```kotlin  {all|10-24|11,20-23}
+// Product class
+data class Product(val name: String, val price: Double)
+
+// Function to display available products
+fun displayProducts(products: List<Product>) {
+    println("Available products:")
+    products.forEach { product -> println("${product.name}: ${product.price}") }
+}
+
+// The program entry point - the main() function
+fun main(args: Array<String>) {
+    val products = listOf(
+        Product(name = "Laptop", price = 999.99),
+        Product(name = "Mouse", price = 29.99),
+        Product(name = "Keyboard", price = 49.99)
+    )
+
+    displayProducts(products)
+
+    if (args.isNotEmpty()) {
+        println("Command-line arguments:")
+        args.forEach { arg -> println(arg) }
+    }
+}
+```
 
 ---
 transition: slide-left
@@ -183,6 +570,80 @@ transition: slide-left
 level: 3
 ---
 # Null safety
+<v-clicks>
+
+- Safe call operator (`?.`)
+  - Safely access properties/methods of nullable types, avoiding `NullPointerException`. 
+  - Result is `null` if the variable is `null`, otherwise performs the operation.
+  - Example: `val customerName = customer?.name`
+  
+- Elvis operator (`?:`)
+  - Set default value when a nullable expression is `null`. 
+  - Result is the default value if the expression is `null`, otherwise evaluates to the original value.
+  - Example: `val customerName = customer?.name ?: "Unknown Customer"`
+
+</v-clicks>
+
+---
+transition: slide-up
+
+level: 3
+---
+# Null safety, continued...
+<v-clicks>
+
+- NotNull operator (`!!`)
+  - Forces compiler to assume nullable type is not null (use cautiously).
+  - Throws `NullPointerException` at runtime if the value is actually `null`
+  - Example: `val nonNullProduct = product!!`
+
+- Safe casts (`as?`)
+  - Safely cast objects to specific types, returning `null` if cast is not possible.
+  - Result is `null` if the cast is not possible, otherwise evaluates to the casted object.
+  - Example: `val specialProduct = product as? SpecialProduct`
+
+</v-clicks>
+
+<img
+v-click
+class="absolute -bottom-15 -left-0 w-80 opacity-50"
+src="https://sli.dev/assets/arrow-bottom-left.svg"
+/>
+<p v-after class="absolute bottom-23 left-70 opacity-30 transform -rotate-40">Example</p>
+
+---
+---
+
+```kotlin  {all|12-14|16,17|19-21|23,24}
+fun getProductById(id: Int): Product? {
+    // Return a nullable Product or null based on the id
+    return null 
+}
+
+fun getCustomerById(id: Int): Customer? {
+    // Return a nullable Customer or null based on the id
+    return null 
+}
+
+fun main() {
+    // Safe call operator
+    val customer: Customer? = getCustomerById(1)
+    val customerName = customer?.name
+
+    // Elvis operator
+    val customerNameOrDefault = customer?.name ?: "Unknown Customer"
+
+    // NotNull operator
+    val product: Product? = getProductById(1)
+    val nonNullProduct = product!!
+
+    // Safe casts
+    val specialProduct = product as? SpecialProduct
+}
+
+```
+
+
 
 <!--
 Quiz: How does Kotlin handle null safety?
