@@ -644,18 +644,86 @@ fun main() {
 ```
 
 
-
-<!--
-Quiz: How does Kotlin handle null safety?
--->
-
 ---
 transition: slide-left
 
 level: 3
 ---
+# Quiz Question 🤹
+
+## What does the safe call operator (?.) do in Kotlin?
+
+Choose one correct answer:
+
+<v-clicks>
+
+**A)** It throws a `NullPointerException` if the expression is `null`.
+
+**B)** It safely calls a function on an object, returning `null` if the object is `null`.
+
+**C)** It converts a nullable type to a non-nullable type.
+
+**D)** It replaces `null` values with a default value.
+<br/><br/>
+
+**Correct answer:** B) It safely calls a function on an object, returning `null` if the object is `null`.
+
+</v-clicks>
+
+---
+transition: slide-up
+
+level: 3
+---
 # Control structures
 
+<v-clicks>
+
+- Conditional statements (`if`-`else`) - Execute code based on a condition.
+
+- `when` expression - A powerful alternative to the `switch` statement. 
+
+- `for` loops - Iterate over ranges, collections, or arrays.
+
+- `while` loops - Suitable for an unknown number of iterations.
+
+</v-clicks>
+
+<img
+v-click
+class="absolute -bottom-15 -left-0 w-80 opacity-50"
+src="https://sli.dev/assets/arrow-bottom-left.svg"
+/>
+<p v-after class="absolute bottom-23 left-70 opacity-30 transform -rotate-40">Example</p>
+
+---
+---
+```kotlin  {all|4|7-12|14-16|18-23}
+fun main() {
+    val order = getOrderById(1)
+    // Conditional statement (if-else)
+    if (order.hasDiscount()) applyDiscount(order) else proceedWithoutDiscount(order)
+
+    // When expression
+    when (getProductCategory()) {
+        "Electronics" -> handleElectronics()
+        "Clothing" -> handleClothing()
+        "Groceries" -> handleGroceries()
+        else -> handleOthers()
+    }
+
+    // For loop (iterate over a list)
+    val productList = getProductList()
+    for (product in productList) println("Processing product: ${product.name}")
+
+    // While loop (unknown number of iterations)
+    var stock = getStock("ProductA")
+    while (stock > 0) {
+        sellProduct("ProductA")
+        stock--
+    }
+}
+```
 
 ---
 transition: slide-left
@@ -663,13 +731,111 @@ transition: slide-left
 level: 3
 ---
 # Defining and using classes
+We'll briefly cover:
+
+<v-clicks> 
+
+- Class declaration and object instantiation
+
+- Primary constructors for initializing properties 
+
+- Init blocks for executing code during instantiation 
+
+- Secondary constructors for alternative instantiation 
+
+- Method declarations for class behavior 
+
+- Companion objects for "static" properties and methods
+
+</v-clicks>
+
+<img
+v-click
+class="absolute -bottom-15 -left-0 w-80 opacity-50"
+src="https://sli.dev/assets/arrow-bottom-left.svg"
+/>
+<p v-after class="absolute bottom-23 left-70 opacity-30 transform -rotate-40">Example</p>
 
 ---
-transition: slide-left
+---
+```kotlin  {all|1,2|3-7|9-11|13-17|19-26|2,21|9-11,22|13-17,24|25|3-7,21,25}
+// Class declaration with primary constructor, secondary constructor, and init block
+class Product(val name: String, val price: Double) {
+    val isExpensive: Boolean
+
+    init {
+        isExpensive = price > 50
+    }
+
+    constructor(name: String) : this(name, 0.0) {
+        println("Creating a product with unknown price")
+    }
+
+    // Method declaration
+    fun displayDetails() {
+        println("Product name: $name\nProduct price: $price")
+    }
+}
+
+// Create instances and use properties/methods
+fun main() {
+    val productA = Product("ProductA", 49.99)
+    val productB = Product("ProductB")
+
+    productA.displayDetails()
+    println("Product is expensive: ${productA.isExpensive}")
+}
+```
+
+---
+transition: slide-up
 
 level: 3
 ---
 # Annotations
+
+<v-clicks> 
+
+- Provide metadata for code elements
+
+- Annotate classes, functions, properties, parameters, expressions, and file level
+
+- Improve readability, maintainability, and functionality 
+
+- Common use cases: serialization, validation, dependency injection, logging 
+
+- Create custom annotations and use existing ones from libraries and frameworks
+
+</v-clicks>
+
+<img
+v-click
+class="absolute -bottom-15 -left-0 w-80 opacity-50"
+src="https://sli.dev/assets/arrow-bottom-left.svg"
+/>
+<p v-after class="absolute bottom-23 left-70 opacity-30 transform -rotate-40">Example</p>
+
+---
+---
+```kotlin  {all|1-4|10|6-11|14|13-17}
+// Custom annotation for minimum price validation
+@Target(AnnotationTarget.PROPERTY)
+@Retention(AnnotationRetention.RUNTIME)
+annotation class MinPrice(val value: Double)
+
+//validate minimum price
+data class Product(
+    val id: Int,
+    val name: String,
+    @MinPrice(0.0) val price: Double
+)
+
+// Deprecated function example
+@Deprecated("Use getProductById() instead")
+fun findProductById(id: Int) {
+    // ...
+}
+```
 
 ---
 transition: slide-left
@@ -678,6 +844,58 @@ level: 3
 ---
 # Type Inference
 
+<v-clicks> 
+
+- Automatically determines types of expressions and values 
+
+- Makes code more concise and reduces type-related errors 
+
+- Applies to variable declarations, function return types, and lambda expressions 
+
+- Simplifies working with collections and higher-order functions 
+
+- Increases code readability and maintainability
+
+</v-clicks>
+
+<img
+v-click
+class="absolute -bottom-15 -left-0 w-80 opacity-50"
+src="https://sli.dev/assets/arrow-bottom-left.svg"
+/>
+<p v-after class="absolute bottom-23 left-70 opacity-30 transform -rotate-40">Example</p>
+
+---
+---
+
+```kotlin  {all|1,2|5-10|6-13|2,6-10,16,17|6-10,20-24}
+// Type inference: return type inferred to be String
+fun productDescription(product: Product) = "Product: ${product.name}, Price: ${product.price}"
+
+fun main() {
+    // Type inference: List<Product>
+    val products = listOf(
+        Product("Phone", 299.99),
+        Product("Laptop", 999.99),
+        Product("Headphones", 49.99)
+    )
+
+    // Type inference: Double (expression)
+    val totalPrice = products.sumOf { it.price }
+    println("Total Price: $totalPrice")
+
+    // Type inference: List<String> (collection)
+    val productDescriptions = products.map(::productDescription)
+    println("Product Descriptions: $productDescriptions")
+
+    // Type inference: inferred to be (Product) -> Boolean
+    val isExpensive = { product: Product -> product.price > 500 }
+    
+    // Type inference: List<Product> (collection with higher-order function)
+    val expensiveProducts = products.filter(isExpensive)
+    println("Expensive Products: $expensiveProducts")
+}
+```
 ---
 transition: slide-left
 
@@ -714,7 +932,7 @@ For full order list go to [modifiers order](https://kotlinlang.org/docs/coding-c
 
 # Order of modifiers
 
-```kotlin  {all|2,7,10|3,14|11}
+```kotlin  {all|1,2,6,7,9,10|3,13,14|11}
 // Abstract class with a protected, suspend function
 internal abstract class ProductRepository {
   protected abstract suspend fun getProductList(): List<Product>
@@ -727,8 +945,8 @@ internal data class Product(val id: Int, val name: String, val price: Double)
 internal class OnlineProductRepository : ProductRepository() {
   private lateinit var products: List<Product>
   
-    // Overriding the getProductList function
-    override suspend fun getProductList(): List<Product> {
+    // Overriding the getProductList function and make public
+    public override suspend fun getProductList(): List<Product> {
       if (!::products.isInitialized) {
         // get products from products repository
       }
