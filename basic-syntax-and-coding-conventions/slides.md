@@ -1019,7 +1019,7 @@ src="https://sli.dev/assets/arrow-bottom-left.svg"
 ---
 ---
 
-```kotlin  {all|1,6|2,3|2-7|11|9-20}
+```kotlin  {all|1,6|2,3|2-7|10,11|9-20}
 class Product(val id: Int, val name: String) {
     // Backing property with underscore prefix
     private val _prices = mutableListOf<Double>()
@@ -1028,8 +1028,8 @@ class Product(val id: Int, val name: String) {
     val prices: List<Double>
         get() = _prices
 
-    // A method that uses an unused variable marked with an underscore
     fun process() {
+         // Destructuring declaration that uses an unused variable marked with an underscore
         val (_, productName) = parseData()
 
         // The unused variable is intentionally marked with an underscore
