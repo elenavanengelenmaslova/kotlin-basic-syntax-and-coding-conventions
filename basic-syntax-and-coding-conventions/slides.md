@@ -1049,6 +1049,49 @@ transition: slide-up
 level: 3
 ---
 
+# Constants
+
+<v-clicks>
+
+- Use uppercase letters, separate words with underscores
+
+- Define within companion object or at top level of file
+
+- Place at beginning of companion object or file for visibility
+
+</v-clicks>
+
+<img
+v-click
+class="absolute -bottom-15 -left-0 w-80 opacity-50"
+src="https://sli.dev/assets/arrow-bottom-left.svg"
+/>
+<p v-after class="absolute bottom-23 left-70 opacity-30 transform -rotate-40">Example</p>
+
+---
+---
+
+```kotlin  {all|1-4|7-12}
+// File level constants
+const val GLOBAL_TAX_RATE = 0.07
+const val DEFAULT_SHIPPING_FEE = 5.0
+val SUPPORTED_CURRENCIES = listOf("EUR", "GBP")
+
+class Shop {
+    companion object {
+        // Class level constants
+        const val MINIMUM_ORDER_AMOUNT = 10.0
+        const val DISCOUNT_THRESHOLD = 100.0
+        const val BULK_DISCOUNT_RATE = 0.1
+    }
+}
+```
+---
+transition: slide-up
+
+level: 3
+---
+
 # Modifiers
 
 For full order list go to [modifiers order](https://kotlinlang.org/docs/coding-conventions.html#modifiers-order)
