@@ -614,7 +614,7 @@ src="https://sli.dev/assets/arrow-bottom-left.svg"
 ---
 ---
 
-```kotlin  {all|12-14|16,17|19-21|23,24}
+```kotlin  {all|12-14|16,17|19-21|20,23,24}
 fun getProductById(id: Int): Product? {
     // Return a nullable Product or null based on the id
     return null 
@@ -652,6 +652,10 @@ level: 3
 # Quiz Question 🤹
 
 ## What does the safe call operator (?.) do in Kotlin?
+
+```kotlin
+val fullAddress = customer.address?.fullAddress()
+```
 
 Choose one correct answer:
 
@@ -898,10 +902,146 @@ fun main() {
 ```
 ---
 transition: slide-left
+layout: section
 
 level: 2
 ---
 # Naming Conventions and Code Organization
+
+
+---
+transition: slide-left
+
+level: 3
+---
+
+# Package names and directory structure
+
+<v-clicks>
+
+- Reverse domain name notation for package names 
+  - Ensures uniqueness and avoids naming conflicts
+  - Example: `com.example.shop`
+
+- Use all lowercase for package names 
+  - Simple, descriptive words to indicate purpose
+  - Underscores and camel case are not recommended for package names
+  - Example: `com.example.shop.inventory`, `com.example.shop.sales`
+
+- Recommended directory structure follows package structure (JVM variant)
+  - Kotlin and Java projects share the same source root and directory structure
+  - Required for framework compatibility
+
+</v-clicks>
+
+<img
+v-click
+class="absolute -bottom-15 -left-0 w-80 opacity-50"
+src="https://sli.dev/assets/arrow-bottom-left.svg"
+/>
+<p v-after class="absolute bottom-23 left-70 opacity-30 transform -rotate-40">Example</p>
+
+---
+---
+
+
+```css {all|1-3|4-10|all}
+kotlin/
+    com/
+        example/
+            shop/
+                products/
+                    Product.kt
+                orders/
+                    Order.kt
+                analytics/
+                    SalesReport.kt
+
+```
+
+
+---
+transition: slide-left
+
+level: 3
+---
+
+# Source file names and organisation
+
+<v-clicks>
+
+- Source file names 
+  - Use PascalCase for Kotlin source file names (e.g., `Customer.kt`, `ProductInventory.kt`)
+  - Meaningful names that describe the code 
+  - Avoid vague or generic words (e.g., `Misc.kt`)
+  
+- Multiple classes in a single file 
+  - Balance between grouping related classes and keeping files manageable 
+  - Name file according to primary class or interface, or use a descriptive name (e.g., `CustomerOrder.kt`, `SalesEntities.kt`)
+
+- Organizing related functions and extensions 
+  - Group related functions and extensions together in a single file 
+  - Name file according to functionality or class being extended (e.g., `ProductExtensions.kt`)
+
+</v-clicks>
+
+
+---
+transition: slide-up
+
+level: 3
+---
+
+# Variables and properties
+
+<v-clicks>
+
+- Use camelCase (e.g. `customerName`, `productPrice`, `orderStatus`)
+
+- Be descriptive (e.g., `temporaryOrder`, `totalPrice`)
+
+- Keep names short but meaningful (e.g., `detailedProduct`)
+
+- Avoid abbreviations and acronyms unless widely understood (e.g., `id`, `url`)
+
+- Use underscore for unused variables (e.g., `_`)
+
+- Use underscore as a prefix for backing properties (e.g., `_prices`)
+</v-clicks>
+
+<img
+v-click
+class="absolute -bottom-15 -left-0 w-80 opacity-50"
+src="https://sli.dev/assets/arrow-bottom-left.svg"
+/>
+<p v-after class="absolute bottom-23 left-70 opacity-30 transform -rotate-40">Example</p>
+
+---
+---
+
+```kotlin  {all|1,6|2,3|2-7|11|9-20}
+class Product(val id: Int, val name: String) {
+    // Backing property with underscore prefix
+    private val _prices = mutableListOf<Double>()
+
+    // Public API property
+    val prices: List<Double>
+        get() = _prices
+
+    // A method that uses an unused variable marked with an underscore
+    fun process() {
+        val (_, productName) = parseData()
+
+        // The unused variable is intentionally marked with an underscore
+        println("Processing product: $productName")
+    }
+
+    // A function that returns a pair of values
+    private fun parseData(): Pair<Int, String> {
+        return Pair(id, name)
+    }
+}
+```
 
 ---
 transition: slide-up
