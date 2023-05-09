@@ -1,5 +1,5 @@
 {
-  "name": "basic-syntax-and-coding-conventions",
+  "name": "kotlin-basic-syntax-and-coding-conventions",
   "private": true,
   "scripts": {
     "build": "slidev build",

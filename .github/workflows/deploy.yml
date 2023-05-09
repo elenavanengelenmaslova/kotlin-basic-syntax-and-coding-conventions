@@ -5,34 +5,21 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        slidev_folder: ['basic-syntax-and-coding-conventions']
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: '19'
-      - name: Change to Slidev folder
-        run: echo "SLIDEV_FOLDER=${{ matrix.slidev_folder }}" >> $GITHUB_ENV
       - name: Install dependencies
         run: npm install
-        working-directory: ${{ env.SLIDEV_FOLDER }}
       - name: Install slidev
         run:  npm i -g @slidev/cli
       - name: Build
-        run: slidev build --base /${{ env.SLIDEV_FOLDER }}/
-        working-directory: ${{ env.SLIDEV_FOLDER }}
+        run: slidev build --base kotlin-spring-webinar
       - name: Deploy pages
         uses: crazy-max/ghaction-github-pages@v3
         with:
-          build_dir: ${{ env.SLIDEV_FOLDER }}/dist
+          build_dir: dist
           target_branch: gh-pages
-          keep_history: true
-          jekyll: false
-          allow_empty_commit: false
-          commit_author: GitHub Actions <github-actions@users.noreply.github.com>
-          commit_message: 'Deploy ${{ matrix.slidev_folder }} to GitHub Pages'
-          fqdn: elena.github.io
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
