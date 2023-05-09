@@ -116,6 +116,7 @@ level: 2
 <v-clicks>
 
 - Koltin is a multi-platform versatile language (JVM, NodeJS, Native, Common)
+  <img src="/Kotlin_multiplatform.png" class="max-h-110px"/>
 
 - Supports procedural, object-oriented and functional programming
 
@@ -1498,6 +1499,24 @@ class ShoppingCart {
 }
 ```
 
+---
+transition: slide-left
+
+level: 3
+---
+# Hover over documentation
+
+<img src="/KdocHover.png" class="max-h-310px"/>
+
+---
+transition: slide-left
+
+level: 3
+---
+# Generated documentation
+
+<img src="/KdocGenerated.png" class="max-h-310px"/>
+
 
 ---
 transition: slide-left
@@ -1524,9 +1543,11 @@ level: 2
 ---
 # Workshop
 
-## https://github.com/elenavanengelenmaslova/kotlin-maven-intellij-getting-started
-
-
+## https://qrco.de/bdxhP7
+<br/>
+<figure class="flex items-center justify-center">
+<img src="/WorkshopQR.png" class="max-h-310px"/>
+</figure>
 
 ---
 layout: end
