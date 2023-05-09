@@ -1329,6 +1329,122 @@ level: 2
 
 # Comments and Documentation
 
+---
+transition: slide-up
+
+level: 3
+---
+
+# Comment syntax and style guide
+
+<v-clicks>
+
+- Single-line comments: Use `//` for single-line comments
+
+- Multi-line comments: Use `/*` and `*/` for multi-line comments
+
+- Part-of-line comments: Use multi-line syntax to comment parts of a line
+
+- Write concise, descriptive comments
+
+- Avoid stating the obvious
+
+- Keep comments up to date
+
+- Place comments above the relevant code
+
+</v-clicks>
+
+<img
+v-click
+class="absolute -bottom-15 -left-0 w-80 opacity-50"
+src="https://sli.dev/assets/arrow-bottom-left.svg"
+/>
+<p v-after class="absolute bottom-23 left-70 opacity-30 transform -rotate-40">Example</p>
+
+---
+---
+
+```kotlin  {all|1|4-7|10,11}
+// Single-line comment
+val productName = "Laptop"
+
+/*
+Multi-line comment
+spanning several lines
+*/
+val productPrice = 1200.0
+
+//partial line commented out with multiline comment type
+fun calculateTotalPrice(items: List<Item>): Double { /*comment*/ }
+
+```
+
+
+---
+transition: slide-up
+
+level: 3
+---
+
+# KDoc and Documentation Comments
+
+<v-clicks>
+
+- KDoc: Kotlin's documentation generation tool
+
+- Use `/**` ... `*/` syntax for documentation comments.
+
+- KDoc supports Markdown for formatting
+
+- Add file-level, class/interface, function/member function, and member documentation
+
+- Use tags like `@param`, `@return`, and `@throws` for structured documentation
+
+- Document public or internal elements
+
+- Maintain up-to-date, clear, and informative documentation
+
+</v-clicks>
+
+<img
+v-click
+class="absolute -bottom-15 -left-0 w-80 opacity-50"
+src="https://sli.dev/assets/arrow-bottom-left.svg"
+/>
+<p v-after class="absolute bottom-23 left-70 opacity-30 transform -rotate-40">Example</p>
+
+---
+---
+
+```kotlin  {all|1-8|10-13,25|17-24}
+/**
+ * Represents a simple product.
+ *
+ * @property id The unique identifier of the product.
+ * @property name The name of the product.
+ * @property price The price of the product.
+ */
+data class Product(val id: Int, val name: String, val price: Double)
+
+/**
+ * ShoppingCart class to manage items in a cart.
+ */
+class ShoppingCart {
+
+    private val items = mutableListOf<Product>()
+
+    /**
+     * Adds a product to the cart.
+     *
+     * @param product The product to add.
+     */
+    fun addItem(product: Product) {
+        items.add(product)
+    }
+}
+```
+
 
 ---
 transition: slide-left
