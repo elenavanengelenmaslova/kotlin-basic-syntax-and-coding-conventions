@@ -324,13 +324,51 @@ level: 3
 
 - Variable declaration: `val` (immutable) and `var` (mutable)
 
-- Variables used in top-level declarations, class properties, local variables, and function parameters 
+- Variables used in top-level declarations, class properties, local variables, and function parameters
 
-- Constants: immutable values known at compile time 
+</v-clicks>
+
+<img
+v-click
+class="absolute -bottom-15 -left-0 w-80 opacity-50"
+src="https://sli.dev/assets/arrow-bottom-left.svg"
+/>
+<p v-after class="absolute bottom-23 left-70 opacity-30 transform -rotate-40">Example</p>
+
+---
+---
+
+```kotlin  {all|1,2|4-6|9|10}
+// Top-level variable
+var shopName: String = "Gadget Store"
+
+class Product(val id: Int, val name: String, var price: Double) {
+    // Class properties
+    val category: String = "Electronics"
+
+    // Function using a local variable and function parameter
+    fun calculateDiscountedPrice(discount: Double = DEFAULT_DISCOUNT_RATE): Double {
+        val discountedPrice = price * (1 - discount)
+        return discountedPrice
+    }
+}
+
+```
+
+---
+transition: slide-up
+
+level: 3
+---
+# Variables and Constants, continued..
+
+<v-clicks>
+
+- Constants: immutable values known at compile time
 
 - Constants declared with `const` keyword for primitive types and String
 
-- Constants can be declared on file level or class level in companion objects 
+- Constants can be declared on file level, class level in companion objects or in object declarations
 
 - Non-primitive constants declared with `val` (singleton-like)
 
@@ -346,27 +384,24 @@ src="https://sli.dev/assets/arrow-bottom-left.svg"
 ---
 ---
 
-```kotlin  {all|1-3,12-15,26|5,6,8-10,18,19}
+```kotlin  {all|1-3|5,15-19|22-24}
 // Top-level constant
 const val SALES_TAX_RATE = 0.07
 const val DEFAULT_CURRENCY = "USD"
-
-// Top-level variable
-var shopName: String = "Gadget Store"
 
 class Product(val id: Int, val name: String, var price: Double) {
     // Class properties
     val category: String = "Electronics"
 
-    // Companion object with constants
-    companion object {
-        const val DEFAULT_DISCOUNT_RATE = 0.1
-    }
-
     // Function using a local variable and function parameter
     fun calculateDiscountedPrice(discount: Double = DEFAULT_DISCOUNT_RATE): Double {
         val discountedPrice = price * (1 - discount)
         return discountedPrice
+    }
+    
+    // Companion object with constants
+    companion object {
+        const val DEFAULT_DISCOUNT_RATE = 0.1
     }
 }
 
@@ -578,7 +613,7 @@ fun main(args: Array<String>) {
 ```
 
 ---
-transition: slide-left
+transition: slide-up
 
 level: 3
 ---
@@ -594,6 +629,64 @@ level: 3
   - Set default value when a nullable expression is `null`. 
   - Result is the default value if the expression is `null`, otherwise evaluates to the original value.
   - Example: `val customerName = customer?.name ?: "Unknown Customer"`
+
+</v-clicks>
+
+<img
+v-click
+class="absolute -bottom-15 -left-0 w-80 opacity-50"
+src="https://sli.dev/assets/arrow-bottom-left.svg"
+/>
+<p v-after class="absolute bottom-23 left-70 opacity-30 transform -rotate-40">Example</p>
+
+---
+---
+
+```kotlin  {1-4|all|7-9|8,11,12}
+fun getCustomerById(id: Int): Customer? {
+    // Return a nullable Customer or null based on the id
+    return null 
+}
+
+fun main() {
+    // Safe call operator
+    val customer: Customer? = getCustomerById(1)
+    val customerName = customer?.name
+
+    // Elvis operator
+    val customerNameOrDefault = customer?.name ?: "Unknown Customer"
+
+}
+
+```
+
+---
+transition: slide-left
+
+level: 3
+---
+# Quiz Question 🤹
+
+## What does the safe call operator (?.) do in Kotlin?
+
+```kotlin
+val fullAddress = customer.address?.fullAddress()
+```
+
+Choose one correct answer:
+
+<v-clicks>
+
+**A)** It throws a `NullPointerException` if the expression is `null`.
+
+**B)** It safely calls a function on an object, returning `null` if the object is `null`.
+
+**C)** It converts a nullable type to a non-nullable type.
+
+**D)** It replaces `null` values with a default value.
+<br/><br/>
+
+**Correct answer:** B) It safely calls a function on an object, returning `null` if the object is `null`.
 
 </v-clicks>
 
@@ -627,25 +720,13 @@ src="https://sli.dev/assets/arrow-bottom-left.svg"
 ---
 ---
 
-```kotlin  {all|12-14|16,17|19-21|20,23,24}
+```kotlin  {1-4|all|7-9|8,11,12}
 fun getProductById(id: Int): Product? {
     // Return a nullable Product or null based on the id
     return null 
 }
 
-fun getCustomerById(id: Int): Customer? {
-    // Return a nullable Customer or null based on the id
-    return null 
-}
-
 fun main() {
-    // Safe call operator
-    val customer: Customer? = getCustomerById(1)
-    val customerName = customer?.name
-
-    // Elvis operator
-    val customerNameOrDefault = customer?.name ?: "Unknown Customer"
-
     // NotNull operator
     val product: Product? = getProductById(1)
     val nonNullProduct = product!!
@@ -655,37 +736,6 @@ fun main() {
 }
 
 ```
-
-
----
-transition: slide-left
-
-level: 3
----
-# Quiz Question 🤹
-
-## What does the safe call operator (?.) do in Kotlin?
-
-```kotlin
-val fullAddress = customer.address?.fullAddress()
-```
-
-Choose one correct answer:
-
-<v-clicks>
-
-**A)** It throws a `NullPointerException` if the expression is `null`.
-
-**B)** It safely calls a function on an object, returning `null` if the object is `null`.
-
-**C)** It converts a nullable type to a non-nullable type.
-
-**D)** It replaces `null` values with a default value.
-<br/><br/>
-
-**Correct answer:** B) It safely calls a function on an object, returning `null` if the object is `null`.
-
-</v-clicks>
 
 ---
 transition: slide-up
@@ -1070,7 +1120,7 @@ level: 3
 
 - Define within companion object or at top level of file
 
-- Place at beginning of companion object or file for visibility
+- Place at beginning of companion object, file or object declaration for visibility
 
 </v-clicks>
 
@@ -1084,11 +1134,10 @@ src="https://sli.dev/assets/arrow-bottom-left.svg"
 ---
 ---
 
-```kotlin  {all|1-4|7-12}
+```kotlin  {all|1-3|5-12|14-18}
 // File level constants
 const val GLOBAL_TAX_RATE = 0.07
 const val DEFAULT_SHIPPING_FEE = 5.0
-val SUPPORTED_CURRENCIES = listOf("EUR", "GBP")
 
 class Shop {
     companion object {
@@ -1097,6 +1146,12 @@ class Shop {
         const val DISCOUNT_THRESHOLD = 100.0
         const val BULK_DISCOUNT_RATE = 0.1
     }
+}
+
+// Object level constants
+object CurrencyConverter {
+    const val DEFAULT_CURRENCY = "USD"
+    val SUPPORTED_CURRENCIES = listOf("USD", "EUR", "JPY")
 }
 ```
 
@@ -1179,7 +1234,7 @@ src="https://sli.dev/assets/arrow-bottom-left.svg"
 ---
 ---
 
-```kotlin  {all|1-11|13-20}
+```kotlin  {all|1,3,7-11,13,20|13-20}
 interface ProductCatalog
 
 data class Product(
@@ -1213,6 +1268,8 @@ level: 3
 
 <v-clicks>
 
+- Class definition with (optional) primary constructor
+
 - Properties 
   
 - Initialization blocks
@@ -1237,7 +1294,7 @@ src="https://sli.dev/assets/arrow-bottom-left.svg"
 ---
 ---
 
-```kotlin  {1|1-3|1-6|1-9|1-12|1-22|all}
+```kotlin  {1,24|1-3,24|1-6,24|1-9,24|1-12,24|1-18,24|all}
 class ShoppingCart {
     // Properties
     private val items: MutableList<Product> = mutableListOf()
@@ -1256,10 +1313,6 @@ class ShoppingCart {
     fun removeItem(product: Product) { /*...*/ }
     
     private fun updateTotal() { /*...*/ }
-
-    // Function overloads
-    fun applyDiscount(discount: Double) { /*...*/ }
-    fun applyDiscount(discountCode: String) { /*...*/ }
 
     // Companion object
     companion object {
