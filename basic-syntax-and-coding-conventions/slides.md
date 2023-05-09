@@ -89,9 +89,17 @@ Here is another comment.
 layout: default
 ---
 
-# Table of contents
+# Session overview
 
 <Toc minDepth="2" maxDepth="2"></Toc>
+
+1. Introduction 
+2. What are the key elements of Kotlin syntax?
+3. How should key elements be named and structured in Kotlin?
+4. What are best practices for comments and documentation in Kotlin?
+5. Summary
+6. Workshop - Setting up your environment 
+
 
 ---
 transition: slide-left
@@ -1086,6 +1094,175 @@ class Shop {
     }
 }
 ```
+
+
+---
+transition: slide-up
+
+level: 3
+---
+
+# Functions, Methods, and Extension Functions
+
+<v-clicks>
+
+- Use camel case for naming
+
+- Use verbs or verb phrases to describe actions
+
+- Keep names concise and clear
+
+- Organize by grouping related functions together
+
+</v-clicks>
+
+<img
+v-click
+class="absolute -bottom-15 -left-0 w-80 opacity-50"
+src="https://sli.dev/assets/arrow-bottom-left.svg"
+/>
+<p v-after class="absolute bottom-23 left-70 opacity-30 transform -rotate-40">Example</p>
+
+---
+---
+
+```kotlin  {all|1,2|4-12}
+// Top-level functions
+fun calculateShippingCost(items: List<Product>): Double { /*...*/ }
+
+class ShoppingCart {
+    // Constructors and properties
+
+    // Functions related to updating product list in shopping cart
+    fun addProduct(product: Product) { /*...*/ }
+    fun removeProduct(product: Product) { /*...*/ }
+    
+    private fun updateTotal() { /*...*/ }
+}
+
+```
+
+---
+transition: slide-up
+
+level: 3
+---
+
+# Classes, Interfaces, Objects, and Type Aliases
+
+<v-clicks>
+
+- Use Pascal case for naming
+  
+- Choose descriptive and concise names
+  
+- Organize elements in a logical order
+  
+- Maintain the order of implementing members
+  
+- Group function overloads together
+
+</v-clicks>
+
+<img
+v-click
+class="absolute -bottom-15 -left-0 w-80 opacity-50"
+src="https://sli.dev/assets/arrow-bottom-left.svg"
+/>
+<p v-after class="absolute bottom-23 left-70 opacity-30 transform -rotate-40">Example</p>
+
+---
+---
+
+```kotlin  {all|1-11|13-20}
+interface ProductCatalog
+
+data class Product(
+    val id: Int,
+    val name: String,
+    val price: Double
+)
+
+typealias ProductList = List<Product>
+
+object ShopManager
+
+class ShoppingCart {
+    // Functions
+    fun addItem(product: Product) { /*...*/ }
+
+    // Function overloads
+    fun applyDiscount(discount: Double) { /*...*/ }
+    fun applyDiscount(discountCode: String) { /*...*/ }
+}
+
+```
+
+---
+transition: slide-up
+
+level: 3
+---
+
+# Class Organization
+
+<v-clicks>
+
+- Properties 
+  
+- Initialization blocks
+  
+- Secondary constructors
+  
+- Delegate properties
+  
+- Functions
+  
+- Companion object
+
+</v-clicks>
+
+<img
+v-click
+class="absolute -bottom-15 -left-0 w-80 opacity-50"
+src="https://sli.dev/assets/arrow-bottom-left.svg"
+/>
+<p v-after class="absolute bottom-23 left-70 opacity-30 transform -rotate-40">Example</p>
+
+---
+---
+
+```kotlin  {1|1-3|1-6|1-9|1-12|1-22|all}
+class ShoppingCart {
+    // Properties
+    private val items: MutableList<Product> = mutableListOf()
+
+    // Initialization block
+    init { /*...*/ }
+
+    // Secondary constructor
+    constructor(items: List<Product>) : this() { /*...*/ }
+
+    // Delegate property
+    val itemCount: Int by lazy { items.size }
+
+    // Functions
+    fun addItem(product: Product) { /*...*/ }
+    fun removeItem(product: Product) { /*...*/ }
+    
+    private fun updateTotal() { /*...*/ }
+
+    // Function overloads
+    fun applyDiscount(discount: Double) { /*...*/ }
+    fun applyDiscount(discountCode: String) { /*...*/ }
+
+    // Companion object
+    companion object {
+        const val DEFAULT_DISCOUNT = 0.05
+    }
+}
+
+```
 ---
 transition: slide-up
 
@@ -1137,27 +1314,14 @@ internal class OnlineProductRepository : ProductRepository() {
     }
 }
 ```
-<!--
-https://sli.dev/guide/syntax.html#line-highlighting
--->
-
-<style>
-.footnotes-sep {
-  @apply mt-20 opacity-10;
-}
-.footnotes {
-  @apply text-sm opacity-75;
-}
-.footnote-backref {
-  display: none;
-}
-</style>
 
 ---
 transition: slide-left
+layout: section
 
 level: 2
 ---
+
 # Comments and Documentation
 
 
@@ -1168,6 +1332,17 @@ level: 2
 ---
 # Summary
 
+<v-clicks>
+
+- Kotlin Syntax overview
+
+- Kotlin Naming Conventions and Code Organisation
+
+- Comments and Documentation
+
+## Open in browser: https://github.com/elenavanengelenmaslova/kotlin-maven-intellij-getting-started
+
+</v-clicks>
 
 ---
 layout: end
