@@ -1,0 +1,37 @@
+name: Deploy pages
+on: push
+permissions:
+  contents: write
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        slidev_folder: ['basic-syntax-and-coding-conventions']
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '19'
+      - name: Change to Slidev folder
+        run: cd ${{ matrix.slidev_folder }}
+      - name: Install dependencies
+        run: npm install
+      - name: Install slidev
+        run:  npm i -g @slidev/cli
+      - name: Build
+        run: slidev build --base ${{ matrix.slidev_folder }}
+      - name: Deploy pages
+        uses: crazy-max/ghaction-github-pages@v3
+        with:
+          build_dir: ${{ matrix.slidev_folder }}/dist
+          target_branch: gh-pages
+          keep_history: true
+          jekyll: false
+          allow_empty_commit: false
+          commit_author: GitHub Actions <github-actions@users.noreply.github.com>
+          commit_message: 'Deploy ${{ matrix.slidev_folder }} to GitHub Pages'
+          fqdn: elenavanengelenmaslova.github.io
+          base_path: ${{ matrix.slidev_folder }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
