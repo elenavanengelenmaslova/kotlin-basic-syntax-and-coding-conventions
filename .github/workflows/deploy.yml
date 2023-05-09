@@ -13,23 +13,26 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '19'
+      - name: Change to Slidev folder
+        run: echo "SLIDEV_FOLDER=${{ matrix.slidev_folder }}" >> $GITHUB_ENV
+      - name: Install dependencies
+        run: npm install
+        working-directory: ${{ env.SLIDEV_FOLDER }}
+      - name: Install slidev
+        run:  npm i -g @slidev/cli
       - name: Build
-        run: |
-          cd ${{ matrix.slidev_folder }}
-          npm install
-          npm i -g @slidev/cli
-          slidev build --base ${{ matrix.slidev_folder }}
+        run: slidev build --base /${{ env.SLIDEV_FOLDER }}/
+        working-directory: ${{ env.SLIDEV_FOLDER }}
       - name: Deploy pages
         uses: crazy-max/ghaction-github-pages@v3
         with:
-          build_dir: ${{ matrix.slidev_folder }}/dist
+          build_dir: ${{ env.SLIDEV_FOLDER }}/dist
           target_branch: gh-pages
           keep_history: true
           jekyll: false
           allow_empty_commit: false
           commit_author: GitHub Actions <github-actions@users.noreply.github.com>
           commit_message: 'Deploy ${{ matrix.slidev_folder }} to GitHub Pages'
-          fqdn: elenavanengelenmaslova.github.io
-          base_path: ${{ matrix.slidev_folder }}
+          fqdn: elena.github.io
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
