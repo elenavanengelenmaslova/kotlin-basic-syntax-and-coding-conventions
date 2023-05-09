@@ -91,15 +91,20 @@ layout: default
 
 # Session overview
 
-<Toc minDepth="2" maxDepth="2"></Toc>
+<v-clicks>
 
 1. Introduction 
-2. What are the key elements of Kotlin syntax?
-3. How should key elements be named and structured in Kotlin?
-4. What are best practices for comments and documentation in Kotlin?
-5. Summary
-6. Workshop - Setting up your environment 
 
+2. What are the key elements of Kotlin syntax?
+
+3. How should key elements be named and structured in Kotlin?
+
+4. What are best practices for comments and documentation in Kotlin?
+
+5. Summary
+
+6. Workshop - Setting up your environment 
+</v-clicks>
 
 ---
 transition: slide-left
@@ -1340,9 +1345,19 @@ level: 2
 
 - Comments and Documentation
 
-## Open in browser: https://github.com/elenavanengelenmaslova/kotlin-maven-intellij-getting-started
-
 </v-clicks>
+
+---
+transition: slide-left
+layout: section
+
+level: 2
+---
+# Workshop
+
+## https://github.com/elenavanengelenmaslova/kotlin-maven-intellij-getting-started
+
+
 
 ---
 layout: end
