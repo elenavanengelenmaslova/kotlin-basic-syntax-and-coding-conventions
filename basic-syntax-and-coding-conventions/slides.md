@@ -230,7 +230,7 @@ src="https://sli.dev/assets/arrow-bottom-left.svg"
 
 ---
 ---
-```kotlin  {all|1,2|4,5|7-10|12-15|14|17-22|19,20}
+```kotlin  {all|1,2|4,5|7-10|12-15|14|14,17-22|14,19,20}
 // Public (default) visibility - accessible from any Kotlin file
 class Product(val id: Int, val name: String, val price: Double)
 
@@ -328,9 +328,9 @@ level: 3
 
 - Constants: immutable values known at compile time 
 
-- Constants declared with const keyword for primitive types and String
+- Constants declared with `const` keyword for primitive types and String
 
-- Constants in class-specific companion objects 
+- Constants can be declared on file level or class level in companion objects 
 
 - Non-primitive constants declared with `val` (singleton-like)
 
