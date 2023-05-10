@@ -1080,7 +1080,7 @@ level: 3
 <v-clicks>
 
 - Source file names 
-  - Use PascalCase for Kotlin source file names (e.g., `Customer.kt`, `ProductInventory.kt`)
+  - Use pascal case for Kotlin source file names (e.g., `Customer.kt`, `ProductInventory.kt`)
   - Meaningful names that describe the code 
   - Avoid vague or generic words (e.g., `Misc.kt`)
   
@@ -1105,7 +1105,7 @@ level: 3
 
 <v-clicks>
 
-- Use camelCase (e.g. `customerName`, `productPrice`, `orderStatus`)
+- Use camel case (e.g. `customerName`, `productPrice`, `orderStatus`)
 
 - Be descriptive (e.g., `temporaryOrder`, `totalPrice`)
 
@@ -1258,7 +1258,7 @@ level: 3
 
 <v-clicks>
 
-- Use Pascal case for naming
+- Use pascal case for naming
   
 - Choose descriptive and concise names
   
