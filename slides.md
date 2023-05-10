@@ -108,15 +108,15 @@ layout: default
 
 ---
 transition: slide-left
-
 level: 2
 ---
+
 # Introdu<logos-kotlin-icon />tion   
 
 <v-clicks>
 
 - Koltin is a multi-platform versatile language (JVM, NodeJS, Native, Common)
-  <img src="/Kotlin_multiplatform.png" class="max-h-110px"/>
+  <img src="/KotlinMultiplatform.png" class="max-h-110px"/>
 
 - Supports procedural, object-oriented and functional programming
 
@@ -129,6 +129,12 @@ level: 2
 - Coroutines (light-weight concurrency)
 
 </v-clicks>
+
+<!--
+- Concise en expressieve syntaxis
+
+- Verbeterde veiligheidsfuncties
+-->
 
 ---
 transition: slide-left
@@ -414,9 +420,9 @@ object CurrencyConverter {
 
 ---
 transition: slide-left
-
 level: 3
 ---
+
 # Quiz Question 🤹
 
 ## What is the main difference between variables and constants in Kotlin?
@@ -438,6 +444,15 @@ Choose one correct answer:
 
 </v-clicks>
 
+<!--
+A) Variabelen en constanten kunnen beide hun waarden tijdens runtime veranderen.
+
+B) Constanten worden alleen gebruikt voor String-waarden, terwijl variabelen elke gegevenstype kunnen bevatten.
+
+C) Variabelen kunnen hun waarden tijdens de uitvoering van het programma veranderen, terwijl constanten dat niet kunnen.
+
+D) Constanten hebben een vast pensioenplan, terwijl variabelen te maken hebben met een fluctuerend pensioenfonds.
+-->
 
 ---
 transition: slide-up
@@ -465,7 +480,6 @@ src="https://sli.dev/assets/arrow-bottom-left.svg"
 />
 <p v-after class="absolute bottom-23 left-70 opacity-30 transform -rotate-40">Example</p>
 
----
 ---
 
 ```kotlin  {all|1-4|6-8|10-15|17,18,21,24|17,19,22,25}
@@ -496,6 +510,12 @@ val productStock: Map<String, Int> = mapOf("Laptop" to 10, "Mouse" to 50)
 val mutableProductStock: MutableMap<String, Int> = mutableMapOf("Laptop" to 10, "Mouse" to 50)
 ```
 
+<!--
+You can use VARRAYs or nested tables to represent lists in PL/SQL
+You can use associative arrays to represent maps
+Set: You can use nested tables to represent sets in PL/SQL by ensuring uniqueness when adding elements
+-->
+
 ---
 transition: slide-left
 
@@ -524,7 +544,6 @@ src="https://sli.dev/assets/arrow-bottom-left.svg"
 />
 <p v-after class="absolute bottom-23 left-70 opacity-30 transform -rotate-40">Example</p>
 
----
 ---
 
 ```kotlin  {all|1-4|6-13|15,16|15-18|15-20|22,23|22-26}
@@ -556,7 +575,13 @@ fun applyDiscount(price: Double, discountCalulator: (Double) -> Double) = discou
 val finalPrice = applyDiscount(price = 100.0, discountCalulator = discountFunction)
 ```
 
+<!--
+Nested function, in PL/SQL These nested functions and procedures
 
+Higher order function kun je vergelijken met gebruik van functional pointers in PLQL
+
+Lambda function kan je vergelijken met anonymous block in PL/SQL
+-->
 
 ---
 transition: slide-up
@@ -663,9 +688,9 @@ fun main() {
 
 ---
 transition: slide-left
-
 level: 3
 ---
+
 # Quiz Question 🤹
 
 ## What does the safe call operator (?.) do in Kotlin?
@@ -690,6 +715,16 @@ Choose one correct answer:
 **Correct answer:** B) It safely calls a function on an object, returning `null` if the object is `null`.
 
 </v-clicks>
+
+<!--
+A) Het geeft een "NullPointerException" als de expressie "null" is.
+
+B) Het roept veilig een functie aan op een object en geeft "null" terug als het object "null" is.
+
+C) Het zet een nullable type om naar een niet-nullable type.
+
+D) Het vervangt "null" waarden met een standaardwaarde.
+-->
 
 ---
 transition: slide-up
@@ -740,9 +775,9 @@ fun main() {
 
 ---
 transition: slide-up
-
 level: 3
 ---
+
 # Control structures
 
 <v-clicks>
@@ -764,8 +799,9 @@ src="https://sli.dev/assets/arrow-bottom-left.svg"
 />
 <p v-after class="absolute bottom-23 left-70 opacity-30 transform -rotate-40">Example</p>
 
+
 ---
----
+
 ```kotlin  {all|4|7-12|14-16|18-23}
 fun main() {
     val order = getOrderById(1)
@@ -793,11 +829,15 @@ fun main() {
 }
 ```
 
+<!--
+when is a little like CASE in PL/SQL
+-->
+
 ---
 transition: slide-left
-
 level: 3
 ---
+
 # Defining and using classes
 We'll briefly cover:
 
@@ -824,8 +864,12 @@ src="https://sli.dev/assets/arrow-bottom-left.svg"
 />
 <p v-after class="absolute bottom-23 left-70 opacity-30 transform -rotate-40">Example</p>
 
+<!--
+Similar to  object types and object instances in PL/SQL.
+-->
+
 ---
----
+
 ```kotlin  {all|1,2|3-7|9-11|13-17|19-26|2,21|9-11,22|13-17,24|25|3-7,21,25}
 // Class declaration with primary constructor, secondary constructor, and init block
 class Product(val name: String, val price: Double) {
@@ -854,6 +898,7 @@ fun main() {
     println("Product is expensive: ${productA.isExpensive}")
 }
 ```
+
 
 ---
 transition: slide-up
@@ -1119,7 +1164,7 @@ level: 3
 
 - Use uppercase letters, separate words with underscores
 
-- Define within companion object or at top level of file
+- Define within object, companion object or at top level of file
 
 - Place at beginning of companion object, file or object declaration for visibility
 
@@ -1552,4 +1597,3 @@ level: 2
 ---
 layout: end
 ---
-
